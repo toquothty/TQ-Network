@@ -19,6 +19,8 @@ for host in ip_address_file:
 	print(output)
 	output = net_connect.send_command("show version | s Processor")
 	print(output)
+	output = net_connect.send_command("show version | s Software")
+	print(output)
 	print("*****END*****")
 
 Config_Out.close # Close the file you opened/created
