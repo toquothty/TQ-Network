@@ -1,9 +1,11 @@
 import json
 import requests
+import getpass
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
-APIC_URL = "https://URL/"
-
+APIC_URL = "https://URL-IP/"
+username = input("USER: ")
+password = getpass.getpass("PASSWORD: ")
 
 def apic_login():
     """ Login to APIC """
@@ -21,8 +23,8 @@ def apic_login():
                 {
                     "aaaUser": {
                         "attributes": {
-                            "name": "USER",
-                            "pwd": "PASS"
+                            "name": username,
+                            "pwd": password
                         }
                     }
                 }
