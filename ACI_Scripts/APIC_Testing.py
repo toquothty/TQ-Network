@@ -1,7 +1,8 @@
 import json
 import requests
 import getpass
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
+import urllib3
+#from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 APIC_URL = "https://URL-IP/"
 username = input("USER: ")
@@ -93,7 +94,7 @@ def get_devices():
         print("HTTP Request failed")
 
 
-requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 print('=========================GET TENANTS=======================')
 get_tenants()
