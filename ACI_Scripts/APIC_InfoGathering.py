@@ -2,9 +2,9 @@ import json
 import requests
 import getpass
 import urllib3
-#from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
-APIC_URL = "https://URL-IP/"
+# Global variables pulling URL, username and password.
+APIC_URL = "https://10.1.111.11/"
 username = input("USER: ")
 password = getpass.getpass("PASSWORD: ")
 
@@ -62,9 +62,12 @@ def get_tenants():
             verify=False
         )
 
-        print('Response HTTP Status Code: {status_code}'.format(
-            status_code=response.status_code))
-        print('Response HTTP Response Body:', json.dumps(response.json(), indent=4))
+        # Write Tenants to file in json format
+        with open("C:\Python\ACI_Tenants.txt", "w") as outfile:
+            outfile.write('Response HTTP Status Code: {status_code}'.format(
+                status_code=response.status_code))
+            tenants = json.dumps(response.json(), indent=4)
+            outfile.write(tenants)
 
     except requests.exceptions.RequestException:
         print("HTTP Request failed")
@@ -86,9 +89,12 @@ def get_devices():
             },
             verify=False)
 
-        print('Response HTTP Status Code: {status_code}'.format(
-            status_code=response.status_code))
-        print('Response HTTP Response Body:', json.dumps(response.json(), indent=4))
+        # Write ACI Devices to text in json format.
+        with open("C:\Python\ACI_Devices.txt", "w") as outfile:
+            outfile.write('Response HTTP Status Code: {status_code}'.format(
+                status_code=response.status_code))
+            devices = json.dumps(response.json(), indent=4)
+            outfile.write(devices)
 
     except requests.exceptions.RequestException:
         print("HTTP Request failed")
