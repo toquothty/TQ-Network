@@ -113,4 +113,7 @@ print('=========================GET DEVICES=======================')
 get_devices()
 
 # TODO: Pull all VPCs, total number of Up Links, be able to compare at quick glance
-# TODO: Pull OSPF instance/routes/number of routes/routing peers
+# TODO: Pull OSPF instance/routes/number of routes/routing peers for L3 Outs
+# /api/node/mo/topology/pod-1/node-101/sys/ospf/inst-default/dom-INT:VRF_INT
+# /api/node/mo/topology/pod-1/node-102/sys/ospf/inst-default/dom-INT:VRF_INT
+# TODO: Pull OSPF details for MPOD
