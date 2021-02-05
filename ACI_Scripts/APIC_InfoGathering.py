@@ -70,19 +70,16 @@ def get_tenants():
         with open("C:\Python\ACI_Tenants.txt", "w") as outfile:
             outfile.write('Response HTTP Status Code: {status_code}\n'.format(
                 status_code=response.status_code))
-            tenants = json.dumps(response.json(), indent=4)
-            outfile.write(tenants)
+            tenants = json.dumps(response.json(), indent=4) # Dump the response into a pretty json format
+            outfile.write(tenants) # Write the full json dump to file for reference.
+
             with open("C:\Python\ACI_Tenants_Filtered.txt", "w") as filteredOut:
-                json_response = json.loads(tenants)
+                json_response = json.loads(tenants) # Load in the full json response from previous to parse through
                 tenantTotal = json_response['totalCount']
-                filteredOut.write('Total Tenants Found: ' + tenantTotal + '\n')
-                for tenant in json_response['imdata']:
-                    print(tenant['fvTenant']['attributes']['dn'])
-                    filteredOut.write(tenant['fvTenant']['attributes']['dn'] + '\n')
-
- #               tenants = json_response['imdata'][0]['fvTenant']['attributes']['dn']
-
-
+                filteredOut.write('Total Tenants Found: ' + tenantTotal + '\n') # Write to file the total amount of tenants found
+                for tenant in json_response['imdata']: # Iterate through all slices of imdata, the top level
+                    print(tenant['fvTenant']['attributes']['dn']) # Print to screen
+                    filteredOut.write(tenant['fvTenant']['attributes']['dn'] + '\n') # Write to the new filtered file.
     except requests.exceptions.RequestException:
         print("HTTP Request failed")
 
