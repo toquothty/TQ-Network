@@ -36,7 +36,6 @@ def apic_login():
             verify=False
         )
         json_response = json.loads(response.content)
-#        print(json_response)
         token = json_response['imdata'][0]['aaaLogin']['attributes']['token']
         print(token)
 
@@ -113,7 +112,7 @@ def get_devices():
             with open("C:\Python\ACI_Devices_Filtered.txt", "w") as filteredOut:
                 json_response = json.loads(devices) # Load in the full json response from previous to parse through
                 deviceTotal = json_response['totalCount']
-                filteredOut.write('Total Tenants Found: ' + deviceTotal + '\n') # Write to file the total amount of tenants found
+                filteredOut.write('Total Devices Found: ' + deviceTotal + '\n') # Write to file the total amount of tenants found
                 filteredOut.write('+++++++++++++++++++++++++++++++++++++++++++++++++++' + '\n' * 2)
                 for device in json_response['imdata']: # Iterate through all slices of imdata, the top level
                     deviceName = device['topSystem']['attributes']['name'] # Assign deviceName to variable
@@ -131,7 +130,7 @@ def get_devices():
         print("HTTP Request failed")
 
 
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning) # Ignore the self signed cert warning.
 
 print('=========================LOGIN TO APIC=====================')
 apic_login()
