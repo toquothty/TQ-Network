@@ -36,6 +36,7 @@ def apic_login():
             verify=False
         )
         json_response = json.loads(response.content)
+#        print(json_response)
         token = json_response['imdata'][0]['aaaLogin']['attributes']['token']
         print(token)
 
@@ -71,6 +72,16 @@ def get_tenants():
                 status_code=response.status_code))
             tenants = json.dumps(response.json(), indent=4)
             outfile.write(tenants)
+            with open("C:\Python\ACI_Tenants_Filtered.txt", "w") as filteredOut:
+                json_response = json.loads(tenants)
+                tenantTotal = json_response['totalCount']
+                filteredOut.write('Total Tenants Found: ' + tenantTotal + '\n')
+                for tenant in json_response['imdata']:
+                    print(tenant['fvTenant']['attributes']['dn'])
+                    filteredOut.write(tenant['fvTenant']['attributes']['dn'] + '\n')
+
+ #               tenants = json_response['imdata'][0]['fvTenant']['attributes']['dn']
+
 
     except requests.exceptions.RequestException:
         print("HTTP Request failed")
