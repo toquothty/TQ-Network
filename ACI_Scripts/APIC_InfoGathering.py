@@ -77,9 +77,12 @@ def get_tenants():
                 json_response = json.loads(tenants) # Load in the full json response from previous to parse through
                 tenantTotal = json_response['totalCount']
                 filteredOut.write('Total Tenants Found: ' + tenantTotal + '\n') # Write to file the total amount of tenants found
+                filteredOut.write('+++++++++++++++++++++++++++++++++++++++++++++++++++' + '\n' * 2)
                 for tenant in json_response['imdata']: # Iterate through all slices of imdata, the top level
                     print(tenant['fvTenant']['attributes']['dn']) # Print to screen
                     filteredOut.write(tenant['fvTenant']['attributes']['dn'] + '\n') # Write to the new filtered file.
+                    filteredOut.write('-----------------------------------------------' + '\n' * 2)
+
     except requests.exceptions.RequestException:
         print("HTTP Request failed")
 
@@ -106,6 +109,23 @@ def get_devices():
                 status_code=response.status_code))
             devices = json.dumps(response.json(), indent=4)
             outfile.write(devices)
+
+            with open("C:\Python\ACI_Devices_Filtered.txt", "w") as filteredOut:
+                json_response = json.loads(devices) # Load in the full json response from previous to parse through
+                deviceTotal = json_response['totalCount']
+                filteredOut.write('Total Tenants Found: ' + deviceTotal + '\n') # Write to file the total amount of tenants found
+                filteredOut.write('+++++++++++++++++++++++++++++++++++++++++++++++++++' + '\n' * 2)
+                for device in json_response['imdata']: # Iterate through all slices of imdata, the top level
+                    deviceName = device['topSystem']['attributes']['name'] # Assign deviceName to variable
+                    oobMgmtAddr = device['topSystem']['attributes']['oobMgmtAddr'] # Assign OOB Management to variable
+                    deviceSerial = device['topSystem']['attributes']['serial'] # Assign Serial to variable
+                    print(deviceName)
+                    print(oobMgmtAddr)
+                    print(deviceSerial + '\n')
+                    filteredOut.write(deviceName + '\n') # Write variable to file
+                    filteredOut.write(oobMgmtAddr + '\n') # Write variable to file
+                    filteredOut.write(deviceSerial + '\n') # Write variable to file
+                    filteredOut.write('-----------------------------------------------' + '\n' * 2)
 
     except requests.exceptions.RequestException:
         print("HTTP Request failed")
