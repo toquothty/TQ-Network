@@ -1,2 +1,2 @@
 # inventory
-Python script to pull various show information from Cisco devices.
+Various scripts being built to gather various details such as baseline state before a upgrade/change, inventory information, etc.
