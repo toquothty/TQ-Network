@@ -12,6 +12,6 @@ fw = firewall.Firewall('IP', 'USER', 'PASS')
 element_response = fw.op('show system info')
 xml_response = fw.op('show system info', xml=True)
 
-print(xml_response)
+print(xml_response + '\n')
 print()
 print(element_response)
